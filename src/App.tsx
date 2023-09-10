@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-function App() {
+import { store } from './reducers/store'
+import { Navbar } from './components/Navbar'
+import { Home } from './pages/Home'
+import { PendingBilling } from './pages/PendingBilling'
+import { PaymentHistory } from './pages/PaymentHistory'
+import { BillingSearch } from './pages/BillingSearch'
+import { BillingPayment } from './pages/BillingPayment'
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <BrowserRouter>
+        <Navbar />
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/billing/pending" element={<PendingBilling />} />
+          <Route path="/billing/search" element={<BillingSearch />} />
+          <Route path="/billing/payment-history" element={<PaymentHistory />} />
+          <Route path="/billing/payment" element={<BillingPayment />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  )
 }
-
-export default App;
